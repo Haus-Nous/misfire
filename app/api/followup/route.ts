@@ -18,6 +18,7 @@ CRITICAL CONSTRAINTS:
 2. Present a natural, clean textbook question using different numbers/variables than the original question.
 3. MATHEMATICAL PRECISION: Before finalizing, verify each distractor option is the ACTUAL mathematical result of applying the specific misconception described, not just a plausible-looking wrong answer. Show your work internally: compute what answer a student WOULD get if they applied exactly this flawed method to this exact question, and ensure that computed value is one of the 4 options. Do not include distractors representing a different misconception than the one specified.
 4. SHOW UNREDUCED FORM: When a distractor is a fraction produced by the flawed computation (e.g. 8/24), write it in its raw UNREDUCED form (e.g. "8/24", not "1/3"). This makes the specific computational error visible. Only the correct answer should appear in fully simplified form.
+5. PLAIN TEXT ONLY: Format all mathematical expressions as plain text using standard notation only (e.g. 3/8, x^2, sqrt(x)) — NEVER use LaTeX syntax like \\frac, \\(, \\), $$, or any markup symbols.
 
 Respond ONLY with a valid JSON object matching this exact structure:
 {

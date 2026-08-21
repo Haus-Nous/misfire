@@ -1,86 +1,118 @@
 # Misfire 🎯
-### Cognitive Misconception Diagnosis & Targeted Follow-Up Engine
+### Intelligent EdTech Engine that Diagnoses the *Specific Misconception* Behind Wrong Answers and Generates Targeted Remediation
 
-> **"Same question. Three mistakes. Three different fixes."**
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-misfire--eta.vercel.app-00df8f?style=for-the-badge&logo=vercel&logoColor=black)](https://misfire-eta.vercel.app/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Haus--Nous%2Fmisfire-181717?style=for-the-badge&logo=github)](https://github.com/Haus-Nous/misfire)
 
-Traditional adaptive learning platforms treat wrong answers as binary points on a difficulty curve — simply dropping a student's score and presenting another generic question. **Misfire** uses LLM-powered cognitive diagnostics to isolate the *exact flawed mental model* behind a student's distractor choice and generates a tailored counter-example question targeted directly at repairing that conceptual gap.
-
----
-
-## ⚡ Key Highlights
-
-- **Pre-Indexed Misconception Taxonomy**: Covers **Fractions**, **Algebra**, and **Photosynthesis** with 15 granular cognitive error models.
-- **4-Part Distinct Diagnostic Reasoning**: Every wrong answer produces:
-  1. *Flawed Mental Model* (What flawed rule the student believes)
-  2. *Distractor Attractor Rationale* (Why this specific wrong option appealed to that belief)
-  3. *Root Cause Cognitive Gap* (The deeper conceptual mechanism)
-  4. *Targeted Remedy Strategy* (Actionable pedagogical fix)
-- **Mathematically Precise Targeted Follow-Ups**: Dynamically constructs new textbook-style questions where distractors mathematically match the diagnosed misconception in unreduced form without leaking hints in the prompt.
-- **Flagship Demo Screen (`/demo`)**: Side-by-side 3-student comparison showing how 3 students answering the same question wrongly receive 3 entirely distinct diagnoses and follow-ups.
-- **Interactive Diagnostic Quiz Room (`/quiz`)**: Live interactive quiz experience with staged reveals, rationale breakdowns, and an experimental on-the-fly taxonomy inferencing sandbox for custom user topics.
+> **Live Application**: [https://misfire-eta.vercel.app/](https://misfire-eta.vercel.app/)
 
 ---
 
-## 🏗️ Architecture & Project Structure
+## 💡 The Problem: Why Traditional Adaptive Learning Fails
 
-```
-/app
-  /api
-    /diagnose/route.ts        # POST: Misconception classifier with 4 distinct reasoning fields
-    /followup/route.ts        # POST: Targeted follow-up question generator with mathematical constraints
-    /infer-taxonomy/route.ts  # POST: On-the-fly taxonomy inferencing for custom user topics
-  /demo
-    page.tsx                  # Flagship 3-column pitch demo ("3 mistakes, 3 fixes")
-  /quiz
-    page.tsx                  # Interactive diagnostic quiz room + experimental custom mode
-  page.tsx                    # Landing page & value proposition
-  layout.tsx                  # Base dark-themed shell & global navigation
-/components
-  QuestionCard.tsx            # Interactive question card with option selection & reasoning
-  MisconceptionCard.tsx       # 4-box diagnostic breakdown display
-  ComparisonView.tsx          # Side-by-side comparison: Traditional vs. Misfire
-/lib
-  taxonomy.ts                 # Expert taxonomies (Fractions, Algebra, Photosynthesis)
-  questions.ts                # Seed question bank with pre-tagged distractor options
-  groq.ts                     # Groq LLM client with retry logic & JSON parsing
+> *"Teaching that responds to HOW someone got it wrong — not just THAT they got it wrong."*
+
+Standard adaptive learning platforms treat wrong answers as **binary failure events**. When a student makes a mistake:
+1. The platform drops their difficulty score by one level.
+2. It serves the next random question in the sequence.
+3. **The student's flawed mental model remains completely unaddressed.**
+
+### Why This Matters
+Two students who miss the same question rarely fail for the same reason:
+- **Student A** adding $\frac{1}{4} + \frac{2}{3} \rightarrow \frac{3}{7}$ has a **procedural gap** (treating numerators and denominators as independent whole numbers).
+- **Student B** choosing $\frac{3}{12}$ has a **fraction conversion gap** (finding a common denominator but forgetting to scale numerators).
+- **Student C** choosing $\frac{2}{7}$ has an **arithmetic operation inversion**.
+
+Giving all three students "a slightly easier fraction drill" wastes instructional time. **Misfire isolates the exact underlying misconception and instantly generates a targeted counter-example question to repair that specific cognitive gap.**
+
+---
+
+## 🏗️ Architecture Flow
+
+```mermaid
+flowchart LR
+    A[Student Submits Wrong Answer] --> B[/api/diagnose\nGroq LLM Engine]
+    B --> C[Classify Flawed Mental Model\n4-Dimension Breakdown]
+    C --> D[/api/followup\nGroq LLM Engine]
+    D --> E[Generate Mathematically Targeted\nCounter-Example Question]
+    E --> F[Present Personalized Remediation\nto Student]
 ```
 
 ---
 
-## 🚀 Getting Started
+## ⚡ Key Features
 
-### 1. Prerequisites
-- Node.js 18.17+ or 20+
-- A Groq API Key ([https://console.groq.com](https://console.groq.com))
+- **🔍 4-Dimension Cognitive Reasoning Breakdown**:
+  - **Flawed Mental Model**: What incorrect rule the student applied (in plain language).
+  - **Distractor Attractor Rationale**: Why this specific wrong answer was appealing.
+  - **Root Cause Cognitive Gap**: The deeper conceptual misunderstanding.
+  - **Targeted Remedy Strategy**: Concrete, actionable guidance for teachers and learners.
+- **🎯 Flagship 3-Column Pitch Demo (`/demo`)**:
+  - Side-by-side comparison showing how **three students answering the same question wrongly** receive **three completely different diagnoses and follow-ups**.
+  - Controlled presenter pacing via live "Run Diagnosis" trigger.
+- **🧪 Interactive Diagnostic Quiz Room (`/quiz`)**:
+  - Staged reveal UX: Question $\rightarrow$ Real-time Diagnosis $\rightarrow$ Remediation Bridge $\rightarrow$ Interactive Targeted Follow-Up.
+- **✨ Experimental Custom Topic Mode**:
+  - Allows users to enter any subject, question, and wrong answer.
+  - Dynamically infers a plausible misconception taxonomy on the fly via Groq LLM before executing the diagnostic chain.
+- **📐 Mathematical Rigor & Clean Output**:
+  - Strict system constraints guarantee distractors match the exact computed outcome of the flawed method in unreduced plain-text format (e.g., `8/24`, not raw LaTeX or arbitrary wrong numbers).
 
-### 2. Installation & Setup
+---
 
+## 📸 Screenshots
+
+<!-- Note: Drop your actual demo screenshots into the repo or replace these paths -->
+![Misfire 3-Column Flagship Demo](https://raw.githubusercontent.com/Haus-Nous/misfire/main/public/demo-screen-placeholder.png)
+*Flagship 3-Column View: "Same question. Three mistakes. Three different fixes."*
+
+![Interactive Quiz Room & Misconception Diagnosis](https://raw.githubusercontent.com/Haus-Nous/misfire/main/public/quiz-screen-placeholder.png)
+*Interactive Quiz Room with Staged 4-Box Cognitive Diagnosis and Remediation Bridge*
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router, Turbopack dev, Webpack build)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **LLM Inference**: [Groq SDK](https://groq.com/) (`qwen/qwen3.6-27b`)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+---
+
+## 🚀 Quickstart & Local Setup
+
+### 1. Clone the repository
 ```bash
-# Clone the repository
-git clone <repo-url>
+git clone https://github.com/Haus-Nous/misfire.git
 cd misfire
+```
 
-# Install dependencies
+### 2. Install dependencies
+```bash
 npm install
+```
 
-# Configure environment variables
+### 3. Configure environment variables
+Create a `.env.local` file in the project root:
+```bash
 cp .env.local.example .env.local
 ```
 
-Edit `.env.local` and add your Groq API key:
+Add your Groq API key (get one free at [console.groq.com](https://console.groq.com)):
 ```ini
-GROQ_API_KEY=gsk_your_real_key_here
+GROQ_API_KEY=gsk_your_groq_api_key_here
 ```
 
-### 3. Run Development Server
-
+### 4. Run the development server
 ```bash
 npm run dev
 ```
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 4. Build for Production
-
+### 5. Build for production
 ```bash
 npm run build
 npm run start
@@ -88,70 +120,10 @@ npm run start
 
 ---
 
-## 🔌 API Reference
+## 👥 Hackathon Submission Info
 
-### `POST /api/diagnose`
-Classifies a student's answer against a taxonomy and returns 4 distinct diagnostic reasoning dimensions.
-
-**Request Body:**
-```json
-{
-  "topic": "fractions",
-  "question": "Calculate the sum of the two fractions: 1/4 + 2/3",
-  "correctAnswer": "11/12",
-  "wrongAnswer": "3/7",
-  "taxonomy": {
-    "denominator_ignored": "Added or subtracted numerators and denominators separately..."
-  }
-}
-```
-
-**Response:**
-```json
-{
-  "misconceptionId": "denominator_ignored",
-  "confidence": 0.99,
-  "flawedMentalModel": "The student believes you can add fractions by simply adding numerators and denominators separately.",
-  "distractorAnalysis": "They added 1 + 2 = 3 for the numerator and 4 + 3 = 7 for the denominator, producing 3/7.",
-  "rootCause": "A fundamental gap in recognizing that fractions must share a common denominator before combining.",
-  "remedyStrategy": "Use visual area models or equivalent-fraction worksheets to explicitly show the need for a common denominator."
-}
-```
-
----
-
-### `POST /api/followup`
-Generates a new multiple-choice question that isolates and tests the diagnosed misconception without hinting at the error.
-
-**Request Body:**
-```json
-{
-  "topic": "fractions",
-  "misconceptionId": "common_denom_confusion",
-  "misconceptionDescription": "Found common denominator but forgot to scale numerators before adding"
-}
-```
-
----
-
-### `POST /api/infer-taxonomy`
-Generates a dynamic 3-4 item misconception taxonomy on the fly for any custom user-submitted topic.
-
-**Request Body:**
-```json
-{
-  "topic": "Thermodynamics",
-  "question": "When heat is added to a gas at constant volume, what happens to internal energy?",
-  "correctAnswer": "Internal energy increases"
-}
-```
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 16 (App Router, Turbopack dev, Webpack build)
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS v4
-- **LLM Engine**: Groq SDK (`openai/gpt-oss-120b`)
-- **Icons**: Lucide React
+- **Project Name**: Misfire
+- **Team**: The White Knight
+- **Track / Problem Statement**: EdTech #1 — Teaching that responds to how someone got it wrong
+- **Live URL**: [https://misfire-eta.vercel.app/](https://misfire-eta.vercel.app/)
+- **Repository**: [https://github.com/Haus-Nous/misfire](https://github.com/Haus-Nous/misfire)
