@@ -64,9 +64,9 @@ export default function RootLayout({
 
             {/* Right Action */}
             <div className="hidden md:flex items-center gap-3">
-              <span className="px-3 py-1 text-xs font-mono font-medium text-amber-300 bg-amber-950/60 border border-amber-800/60 rounded-full flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                Hackathon Prototype
+              <span className="px-2.5 py-1 text-[11px] font-mono font-medium text-cyan-400 bg-cyan-950/40 border border-cyan-800/50 rounded-full flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Live Engine
               </span>
             </div>
           </div>
