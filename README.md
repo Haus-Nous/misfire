@@ -31,11 +31,11 @@ Giving all three students "a slightly easier fraction drill" wastes instructiona
 
 ```mermaid
 flowchart LR
-    A[Student Submits Wrong Answer] --> B[/api/diagnose\nGroq LLM Engine]
-    B --> C[Classify Flawed Mental Model\n4-Dimension Breakdown]
-    C --> D[/api/followup\nGroq LLM Engine]
-    D --> E[Generate Mathematically Targeted\nCounter-Example Question]
-    E --> F[Present Personalized Remediation\nto Student]
+    A[Student Submits Wrong Answer] --> B["/api/diagnose<br/>Groq LLM Engine"]
+    B --> C[Classify Flawed Mental Model<br/>4-Dimension Breakdown]
+    C --> D["/api/followup<br/>Groq LLM Engine"]
+    D --> E[Generate Mathematically Targeted<br/>Counter-Example Question]
+    E --> F[Present Personalized Remediation<br/>to Student]
 ```
 
 ---
