@@ -62,12 +62,11 @@ flowchart LR
 
 ## 📸 Screenshots
 
-<!-- Note: Drop your actual demo screenshots into the repo or replace these paths -->
-![Misfire 3-Column Flagship Demo](https://raw.githubusercontent.com/Haus-Nous/misfire/main/public/demo-screen-placeholder.png)
-*Flagship 3-Column View: "Same question. Three mistakes. Three different fixes."*
+### Flagship 3-Column Comparison — "Same question. Three mistakes. Three different fixes."
+![Misfire 3-Column Demo](public/screenshots/demo-screenshot.png)
 
-![Interactive Quiz Room & Misconception Diagnosis](https://raw.githubusercontent.com/Haus-Nous/misfire/main/public/quiz-screen-placeholder.png)
-*Interactive Quiz Room with Staged 4-Box Cognitive Diagnosis and Remediation Bridge*
+### Interactive Diagnostic Quiz Room
+![Misfire Quiz Room](public/screenshots/quiz-screenshot.png)
 
 ---
 
