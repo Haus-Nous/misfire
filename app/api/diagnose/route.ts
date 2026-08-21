@@ -50,30 +50,36 @@ Respond ONLY with a valid JSON object matching this exact structure:
         remedyStrategy: string;
       }>(systemPrompt, userPrompt);
 
+      const knownMisconception = TAXONOMY[topic as keyof typeof TAXONOMY]?.[result.misconceptionId];
+      const humanLabel = knownMisconception ? knownMisconception.label : result.misconceptionId.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      const categoryName = `${topic.charAt(0).toUpperCase() + topic.slice(1)} Misconception`;
+
       return NextResponse.json({
         misconceptionId: result.misconceptionId,
+        misconceptionName: humanLabel,
+        category: categoryName,
         confidence: result.confidence,
+        confidenceScore: result.confidence,
         flawedMentalModel: result.flawedMentalModel,
         distractorAnalysis: result.distractorAnalysis,
         rootCause: result.rootCause,
         remedyStrategy: result.remedyStrategy,
 
         // Backward compatibility fields for UI components
-        misconceptionName: result.misconceptionId,
-        category: 'Cognitive Misconception Flaw',
-        confidenceScore: result.confidence,
         underlyingMentalModel: result.flawedMentalModel,
         whyChosenDistractorPicked: result.distractorAnalysis,
         rootCauseAnalysis: result.rootCause,
         comparativeInsight: {
           traditionalResponse: 'Lower difficulty by 1 level.',
-          misfireResponse: `Target misconception ${result.misconceptionId}: ${result.remedyStrategy}`
+          misfireResponse: `Target misconception ${humanLabel}: ${result.remedyStrategy}`
         }
       });
     }
 
     // Fallback when GROQ_API_KEY is unconfigured locally
     const knownId = body.knownMisconceptionId || 'denominator_ignored';
+    const knownMisconception = TAXONOMY[topic as keyof typeof TAXONOMY]?.[knownId];
+    const humanLabel = knownMisconception ? knownMisconception.label : 'Denominator Ignored';
     const fallbackFlawedModel = 'The student believes numerators and denominators are separate independent whole numbers that can be added directly.';
     const fallbackDistractorAnalysis = `The option "${wrongAnswer}" directly results from adding top numbers and bottom numbers independently.`;
     const fallbackRootCause = 'Lack of fractional unit scale understanding — failing to realize that fractions represent ratios of a unified whole unit.';
@@ -81,22 +87,22 @@ Respond ONLY with a valid JSON object matching this exact structure:
     
     return NextResponse.json({
       misconceptionId: knownId,
+      misconceptionName: humanLabel,
+      category: `${topic.charAt(0).toUpperCase() + topic.slice(1)} Misconception`,
       confidence: 0.95,
+      confidenceScore: 0.95,
       flawedMentalModel: fallbackFlawedModel,
       distractorAnalysis: fallbackDistractorAnalysis,
       rootCause: fallbackRootCause,
       remedyStrategy: fallbackRemedy,
 
       // Backward compatibility fields
-      misconceptionName: knownId,
-      category: 'Tagged Taxonomy Gap',
-      confidenceScore: 0.95,
       underlyingMentalModel: fallbackFlawedModel,
       whyChosenDistractorPicked: fallbackDistractorAnalysis,
       rootCauseAnalysis: fallbackRootCause,
       comparativeInsight: {
         traditionalResponse: 'Lower difficulty by 1 level.',
-        misfireResponse: `Target misconception ${knownId}: ${fallbackRemedy}`
+        misfireResponse: `Target misconception ${humanLabel}: ${fallbackRemedy}`
       }
     });
   } catch (error: unknown) {

@@ -64,6 +64,7 @@ export interface DiagnosisResult {
   misconceptionId: string;
   misconceptionName: string;
   category: string;
+  confidence?: number;
   confidenceScore: number;
   flawedMentalModel?: string;
   distractorAnalysis?: string;
